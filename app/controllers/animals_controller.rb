@@ -7,7 +7,7 @@ class AnimalsController < ApplicationController
   def show
     animal = Animal.find(params[:id])
     if animal.valid?
-      render json: animal
+      render json: animal, include: [:sightings]
     else
       render json: animal.errors
     end
@@ -40,7 +40,7 @@ class AnimalsController < ApplicationController
       render json: animal.errors
     end
   end
-  
+
   private
   def animal_params
     params.require(:animal).permit(:common_name, :scientific_binomial)
